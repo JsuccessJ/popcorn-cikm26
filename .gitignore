@@ -1,0 +1,73 @@
+# ===========================================
+# Data files (large; downloaded / regenerated)
+# ===========================================
+*.pkl
+/*.json
+/plm_cache/
+# GloVe / FastText caches (see config of cache='../../glove')
+/glove/
+/glove_danish/
+
+# ===========================================
+# Output directories (training / evaluation artifacts)
+# ===========================================
+/logs/
+/models/
+/best_model/
+/dev/
+/test/
+/configs/
+/results/
+/prediction/
+/optuna_logs/
+
+# ===========================================
+# Paper / documents
+# ===========================================
+*.pdf
+popcorn_commands.md
+
+# ===========================================
+# Non-core analysis & dev scripts (not part of the release)
+# ===========================================
+aggregate_result.py
+evaluate_bias_negatives.py
+list_loss_logs.py
+visualize_loss.py
+visualize_dist.py
+
+# ===========================================
+# General recommendation baselines (not used by POPCORN)
+# ===========================================
+/general_recommendation_methods/
+
+# ===========================================
+# Backup folders
+# ===========================================
+/backup_before_popcorn/
+/survey/
+
+# ===========================================
+# Python cache & build artifacts
+# ===========================================
+__pycache__/
+*.pyc
+*.pyo
+*.so
+*.o
+*.dylib
+*.log
+
+# ===========================================
+# Environment & editor / system files
+# ===========================================
+.env
+.env.local
+.venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
