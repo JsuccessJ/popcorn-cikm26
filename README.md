@@ -12,7 +12,7 @@ POPCORN mitigates **popularity bias** in news recommendation by decoupling a use
 - **I3 — Popularity-penalized Interest Matching**: penalizes recommendations for news that are popular but not genuinely interesting to the user.
 
 ## Available dataset
-1. [MIND Dataset](https://msnews.github.io/) (MIND-small, MIND-200k, MIND-large)
+1. [MIND Dataset](https://msnews.github.io/)
 2. [Adressa Dataset](https://reclab.idi.ntnu.no/dataset/)
 3. [EB-NeRD Dataset](https://recsys.eb.dk/)
 
@@ -46,25 +46,6 @@ This downloads `MINDsmall_train.zip`, `MINDsmall_dev.zip`, and the Wikidata know
 If the automatic download fails due to an unstable network, download the MIND dataset and knowledge graph manually using the links in `download_extract_MIND.sh`.
 
 ## Hyperparameters
-Default training hyperparameters (see `config.py`):
-![hyper_parameter](./assets/hyper_parameter.png)
-The table above presents POPCORN-specific hyperparameter settings for each of the baselines on the three datasets. The settings commonly applied to all the augmented methods are reported in the paper. 
-
-| Hyperparameter | Value |
-| --- | --- |
-| Optimizer | Adam |
-| Learning rate | 1e-4 |
-| Dropout | 0.2 |
-| Batch size | 32 |
-| Epoch | 16 |
-| Early stopping epochs | 5 |
-| # of negative samples | 4 |
-| Max title length | 32 |
-| Max abstract length | 128 |
-| Max history length | 50 |
-| Word embedding dim | 300 |
-| # of GCN layers | 4 |
-
 POPCORN-specific hyperparameters (see `config.py`):
 
 | Hyperparameter | Argument | Value |
@@ -76,6 +57,41 @@ POPCORN-specific hyperparameters (see `config.py`):
 | Penalty weight β (I3) | `--pop_penalty_weight` | 2.0 |
 | InfoNCE temperature (I3) | `--temperature` | 0.1 |
 
+&nbsp;
+
+Default training hyperparameters (see `config.py`):
+<table>
+<thead>
+<tr><th rowspan="2">Method</th><th colspan="4" align="center">MIND</th><th colspan="4" align="center">Adressa</th><th colspan="4" align="center">EB-NeRD</th></tr>
+<tr><th>ε</th><th>λ</th><th>α</th><th>β</th><th>ε</th><th>λ</th><th>α</th><th>β</th><th>ε</th><th>λ</th><th>α</th><th>β</th></tr>
+</thead>
+<tbody>
+<tr><td>NRMS</td><td>0.1</td><td>0.01</td><td>1.0</td><td>2</td><td>0.01</td><td>0.1</td><td>0.1</td><td>3</td><td>0.05</td><td>0.01</td><td>0.3</td><td>5</td></tr>
+<tr><td>NAML</td><td>0.1</td><td>0.01</td><td>0.5</td><td>2</td><td>0.01</td><td>0.1</td><td>1.0</td><td>9</td><td>0.05</td><td>0.5</td><td>0.6</td><td>6</td></tr>
+<tr><td>LSTUR</td><td>0.1</td><td>0.01</td><td>0.5</td><td>6</td><td>0.01</td><td>0.1</td><td>1.0</td><td>9</td><td>0.2</td><td>0.1</td><td>0.2</td><td>2</td></tr>
+<tr><td>CNE-SUE</td><td>0.1</td><td>0.1</td><td>0.1</td><td>2</td><td>0.01</td><td>0.1</td><td>1.0</td><td>7</td><td>0.05</td><td>0.05</td><td>0.3</td><td>9</td></tr>
+<tr><td>PENR</td><td>0.1</td><td>0.01</td><td>0.5</td><td>2</td><td>0.1</td><td>0.1</td><td>0.5</td><td>2</td><td>0.1</td><td>0.01</td><td>0.1</td><td>2</td></tr>
+<tr><td>MINER</td><td>0.01</td><td>0.1</td><td>0.1</td><td>2</td><td>0.1</td><td>0.01</td><td>1.0</td><td>8</td><td>0.1</td><td>0.01</td><td>1.0</td><td>2</td></tr>
+<tr><td>TCCM</td><td>0.5</td><td>0.01</td><td>0.2</td><td>7</td><td>0.5</td><td>0.01</td><td>0.2</td><td>4</td><td>0.5</td><td>0.01</td><td>0.2</td><td>6</td></tr>
+<tr><td>CROWN</td><td>0.1</td><td>0.01</td><td>0.1</td><td>2</td><td>0.2</td><td>0.5</td><td>1.8</td><td>9</td><td>0.05</td><td>0.01</td><td>0.7</td><td>2</td></tr>
+</tbody>
+</table>
+
+| Hyperparameter | Value |
+| --- | --- |
+| Optimizer | Adam |
+| Learning rate | 1e-4 |
+| Dropout | 0.25 |
+| Batch size | 32 |
+| Epoch | 5 |
+| Early stopping epochs | 5 |
+| # of negative samples | 4 |
+| Max title length | 32 |
+| Max abstract length | 128 |
+| Max history length | 50 |
+| Word embedding dim | 300 |
+| # of GCN layers | 4 |
+
 ## How to run
 Training (`--mode=train`, the default) trains the model and then automatically evaluates the best checkpoint on the test set.
 
@@ -83,24 +99,24 @@ Training (`--mode=train`, the default) trains the model and then automatically e
 ```
 python main.py --news_encoder=POPCORN --user_encoder=POPCORN --click_predictor=POPCORN \
                --popcorn_base_news_encoder=MHSA --popcorn_base_user_encoder=ATT \
-               --use_I1 --use_I2 --use_I3 --dataset=small
+               --use_I1 --use_I2 --use_I3 --dataset=adressa
 ```
 
-**Model-agnostic backbones.** POPCORN can be applied to other base encoders via `--popcorn_base_news_encoder` (`MHSA`, `NAML`, `CNE`, `CNN`, `CROWN`, `PENR`, `PLMMiner`) and `--popcorn_base_user_encoder` (`ATT`, `MHSA`, `CATT`, `GRU`, `SUE`, `LSTUR`, `CROWN`, `PENR`, `MINER`). For example, POPCORN on a NAML backbone:
+**Model-agnostic backbones.** POPCORN can be applied to other base encoders via `--popcorn_base_news_encoder` (`MHSA`, `NAML`, `CNE`, `CNN`, `CROWN`, `PENR`, `PLMMiner`) and `--popcorn_base_user_encoder` (`ATT`, `MHSA`, `SUE`, `LSTUR`, `CROWN`, `PENR`, `MINER`). For example, POPCORN on a NAML backbone:
 ```
 python main.py --news_encoder=POPCORN --user_encoder=POPCORN --click_predictor=POPCORN \
                --popcorn_base_news_encoder=NAML --popcorn_base_user_encoder=ATT \
-               --use_I1 --use_I2 --use_I3 --dataset=small
+               --use_I1 --use_I2 --use_I3 --dataset=adressa
 ```
 
 **Base model without POPCORN** (e.g., the MHSA + ATT backbone):
 ```
-python main.py --news_encoder=MHSA --user_encoder=ATT --dataset=small
+python main.py --news_encoder=MHSA --user_encoder=ATT --dataset=adressa
 ```
 
 **Ablations.** Enable each component independently with `--use_I1`, `--use_I2`, `--use_I3`.
 
-**Other datasets.** Switch datasets with `--dataset` (`small`, `200k`, `large`, `adressa`, `eb-nerd`).
+**Other datasets.** Switch datasets with `--dataset` (`small`, `adressa`, `eb-nerd`).
 
 <!-- **Multi-GPU training.** Distributed training is supported via `--world_size=N` (the `batch_size` must be divisible by `world_size`):
 ```
@@ -109,12 +125,12 @@ python main.py --news_encoder=POPCORN --user_encoder=POPCORN --click_predictor=P
 ``` -->
 
 ## Citation
-This paper is currently under review. Author and citation information are withheld for anonymity and will be added upon acceptance.
+Please cite our paper if you have used the code in your work. You can use the following BibTex citation:
 ```
 @inproceedings{popcorn2026,
   title     = {POPCORN: Popularity-decoupled Interest Matching for Personalized News Recommendation},
-  author    = {Anonymous},
-  booktitle = {Under review at the ACM International Conference on Information and Knowledge Management (CIKM)},
+  author    = {Ryu, Seongeun and Hwang, Jaesung and Kim, Sang-Wook},
+  booktitle = {Proceedings of the ACM International Conference on Information and Knowledge Management (CIKM) 2026},
   year      = {2026}
 }
 ```
