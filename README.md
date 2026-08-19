@@ -47,6 +47,8 @@ If the automatic download fails due to an unstable network, download the MIND da
 
 ## Hyperparameters
 Default training hyperparameters (see `config.py`):
+![hyper_parameter](./assets/hyper_parameter.png)
+The table above presents POPCORN-specific hyperparameter settings for each of the baselines on the three datasets. The settings commonly applied to all the augmented methods are reported in the paper. 
 
 | Hyperparameter | Value |
 | --- | --- |
