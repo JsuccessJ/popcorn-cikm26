@@ -57,9 +57,6 @@ POPCORN-specific hyperparameters (see `config.py`):
 | Penalty weight β (I3) | `--pop_penalty_weight` | 2.0 |
 | InfoNCE temperature (I3) | `--temperature` | 0.1 |
 
-&nbsp;
-
-Default training hyperparameters (see `config.py`):
 <table>
 <thead>
 <tr><th rowspan="2">Method</th><th colspan="4" align="center">MIND</th><th colspan="4" align="center">Adressa</th><th colspan="4" align="center">EB-NeRD</th></tr>
@@ -76,6 +73,10 @@ Default training hyperparameters (see `config.py`):
 <tr><td>CROWN</td><td>0.1</td><td>0.01</td><td>0.1</td><td>2</td><td>0.2</td><td>0.5</td><td>1.8</td><td>9</td><td>0.05</td><td>0.01</td><td>0.7</td><td>2</td></tr>
 </tbody>
 </table>
+&nbsp;
+
+Default training hyperparameters (see `config.py`):
+
 
 | Hyperparameter | Value |
 | --- | --- |
