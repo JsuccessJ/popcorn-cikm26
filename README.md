@@ -1,6 +1,6 @@
 # POPCORN: Popularity-decoupled Interest Matching for Personalized News Recommendation
 
-This repository provides the official implementation of **POPCORN** (**POP**ularity-de**CO**upled inte**R**est matchi**N**g), a model-agnostic framework for popularity-debiased personalized news recommendation, as described in our paper *POPCORN: Popularity-decoupled Interest Matching for Personalized News Recommendation* (under review at CIKM 2026).
+This repository provides the official implementation of **POPCORN** (**POP**ularity-de**CO**upled inte**R**est matchi**N**g), a model-agnostic framework for popularity-debiased personalized news recommendation, as described in our paper *POPCORN: Popularity-decoupled Interest Matching for Personalized News Recommendation* (CIKM 2026).
 
 ## Overview
 ![The overall architecture of POPCORN](./assets/POPCORN_overview.png)
